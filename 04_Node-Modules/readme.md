@@ -18,3 +18,13 @@
 - node 04_Node-Modules/2-console/app.js
 - console.time, timeEnd - 성능 테스트를 하고 싶을 때
 - trace 어디에서 호출되었는지 확인할 때 사용
+
+## 4.5. this란(브라우저와의 차이점)
+
+- node 04_Node-Modules/3-this/app.js
+- class에서 this는 클래스 자기 자신
+- 클래스 외부의 this는 global
+- nodejs에서 this
+  - 함수 내에서 사용 => global
+  - 전역 => module.exports
+  - 클래스 내부 => 클래스
