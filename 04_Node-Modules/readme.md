@@ -28,3 +28,12 @@
   - 함수 내에서 사용 => global
   - 전역 => module.exports
   - 클래스 내부 => 클래스
+
+## 4.6. 모듈(export, require)
+
+- node 04_Node-Modules/4-module/app.js
+- 모듈 : 연관된 것 끼리 묶어 놓은 것
+- nodejs가 브라우저보다 먼저 export, import가 생겨서 예전 문법은 약간 다름
+  - module.exports
+  - require
+- javascript ES6(2015) 부턴 자체적으로 모듈을 제공
