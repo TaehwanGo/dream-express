@@ -12,3 +12,9 @@
 - node 04_Node-Modules/1-global/app.js
 - 브라우저는 window
 - nodejs는 global
+
+## 4.4. 콘솔로그의 진실
+
+- node 04_Node-Modules/2-console/app.js
+- console.time, timeEnd - 성능 테스트를 하고 싶을 때
+- trace 어디에서 호출되었는지 확인할 때 사용
