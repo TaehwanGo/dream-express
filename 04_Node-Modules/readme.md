@@ -37,3 +37,9 @@
   - module.exports
   - require
 - javascript ES6(2015) 부턴 자체적으로 모듈을 제공
+
+## 4.7. 2015최신 모듈(export, import)
+
+- npm init --yes
+- type : "module"
+  - commonjs가 아닌 자바스크립트가 자체적으로 제공하는 모듈을 사용하겠다는 의미
