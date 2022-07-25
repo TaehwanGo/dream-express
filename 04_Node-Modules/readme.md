@@ -43,3 +43,9 @@
 - npm init --yes
 - type : "module"
   - commonjs가 아닌 자바스크립트가 자체적으로 제공하는 모듈을 사용하겠다는 의미
+
+## 4.8. OS(운영체제) 정보
+
+- node가 가진 OS 모듈에 대해 알아보자
+- npm init 으로 매번 자바스크립트 모듈 설정하는 것은 번거로우므로
+  - 그냥 node에서 제공되는 default 모듈을 사용(require)
