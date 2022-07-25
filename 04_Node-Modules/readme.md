@@ -49,3 +49,8 @@
 - node가 가진 OS 모듈에 대해 알아보자
 - npm init 으로 매번 자바스크립트 모듈 설정하는 것은 번거로우므로
   - 그냥 node에서 제공되는 default 모듈을 사용(require)
+
+## 4.9. process(프로세스) 정보
+
+- nextTick : 기존 콜백함수 보다 더 우선순위를 높여서 테스크 큐에 등록
+  - nextTick이 setTimeout 보다 먼저 실행 됨
