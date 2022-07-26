@@ -54,3 +54,10 @@
 
 - nextTick : 기존 콜백함수 보다 더 우선순위를 높여서 테스크 큐에 등록
   - nextTick이 setTimeout 보다 먼저 실행 됨
+
+## 4.10. 타이머와 콜스택의 연관
+
+- global에 정의되어 있기 때문에 모듈을 import(require)를 하지 않아도 됨
+- setInterval
+- setTimeout
+- node 04_Node-Modules/8-timer/app.js
