@@ -61,3 +61,10 @@
 - setInterval
 - setTimeout
 - node 04_Node-Modules/8-timer/app.js
+
+## 4.11. path 그리고 유의할 점
+
+- nodejs는 PC위에서 동작하기 때문에 file system에 접근하기 좋음
+- path : 경로
+  - 파일 경로를 접근하거나 경로에 대해 무언가 처리해야될 때 사용
+- node 04_Node-Modules/9-path/app.js
