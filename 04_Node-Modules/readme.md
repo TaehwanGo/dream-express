@@ -68,3 +68,21 @@
 - path : 경로
   - 파일 경로를 접근하거나 경로에 대해 무언가 처리해야될 때 사용
 - node 04_Node-Modules/9-path/app.js
+
+## 4.12. file 동기와 비동기 그리고 프로미스
+
+- file에서 기본적으로 할 수 있는 모든 동작들을 fs 모듈에서 제공
+- 모든 API는 3가지 형태로 제공됨
+
+  - 비동기
+    - rename(..., callback)
+  - blocking : 끝날 때 까지 다음으로 넘어가지 않음
+    - renameSync
+    - 항상 try catch로 감싸서 사용해야 함
+  - promises.rename().then().catch()
+    - promise 형태로 사용할 수 있음
+
+- fs API 중 sync형태보단 callback또는 promises 형태로 사용하는 것이 좋다
+
+- cd 04_Node-Modules/10-file
+- node app.js
