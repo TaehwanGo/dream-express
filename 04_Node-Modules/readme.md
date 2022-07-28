@@ -86,3 +86,12 @@
 
 - cd 04_Node-Modules/10-file
 - node app.js
+
+## 4.13. file 다양한 사용법
+
+- cd 04_Node-Modules/10-file
+- node app2.js
+
+- 항상 API를 사용할 땐 그 API에 전달해야되는 매개변수가 어떤 것들이 있는지 확인하자
+- 함수의 리턴값은 무엇인지
+- 프로미스에선 캐치로 에러를 잡아내자
