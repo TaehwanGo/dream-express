@@ -137,3 +137,4 @@
 - createReadStream 메서드를 클릭해서 따라 들어가면
   - ReadStream 클래스를 반환하는데 ReadStream 클래스를 보면
   - on 메서드를 통해 다양한 이벤트를 등록할 수 있다
+- stream 메서드들은 자기자신을 리턴하므로 체이닝을 할 수 있다
