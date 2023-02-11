@@ -90,19 +90,29 @@
 ### Node.js APIs
 
 - 멀티스레딩 => Non-blocking I/O, Event-driven 방식(콜백)
+- Node.JS APIs
 
   - V8
-    - Javascript engine
-    - C++
+    - 기능
+      - Javascript engine
+    - 작성 언어
+      - C++
   - Libuv
-    - Non-blocking I/O 가능
-    - C
+    - 기능
+      - Non-blocking I/O 가능
+      - 운영체제에 따라서 다른 방식으로 동작
+    - 작성 언어
+      - C
   - llhttp
-    - HTTP parsing
-    - Typescript, C
+    - 기능
+      - HTTP parsing
+    - 작성 언어
+      - Typescript, C
   - Open SSL
-    - tls, crypto
-    - C
+    - 기능
+      - tls, crypto
+    - 작성 언어
+      - C
   - c-ares
     - async DNS request
   - zlib
