@@ -12,6 +12,7 @@ let num = 1;
 
 /**
  * setImmediate과 setTimeout는 process.nextTick 보다 나중에 실행 된다
+ * code1 -> code2 -> code3 -> process.nextTick -> setTimeout 0 -> setImmediate
  */
 // console.log("code1");
 // setTimeout(() => {

@@ -6,13 +6,17 @@ console.log(__filename);
 // /Users/gotaehwan/projects/dream-express/04_Node-Modules/9-path/app.js
 // Windows라면 => C:\Users\gotaehwan\projects\dream-express\04_Node-Modules\9-path\app.js
 
+console.log(path.sep); // 경로 구분자
+console.log(path.delimiter); // 환경 변수 구분자
+
 // basename : file 이름만 읽어옴
 console.log(path.basename(__filename));
+console.log(path.basename(__filename, ".js"));
 
 // dirname
 console.log(path.dirname(__filename));
 
-// extension
+// extension - 확장자
 console.log(path.extname(__filename));
 
 // parse
@@ -28,7 +32,7 @@ console.log(str);
 console.log("isAbsolute?", path.isAbsolute(__dirname));
 console.log("isAbsolute?", path.isAbsolute("../"));
 
-// normalize
+// normalize - 경로를 정상적인 형태로 만들어줌
 console.log(path.normalize("/foo/bar//baz/asdf/..")); // /foo/bar/baz
 
 // join

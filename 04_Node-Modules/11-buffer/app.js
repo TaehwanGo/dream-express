@@ -1,6 +1,8 @@
+const fs = require("fs");
+// 'Hi'라는 문자열을 버퍼에 올리고, 버퍼를 출력해보자.
 const buf = Buffer.from("Hi"); // 바로 버퍼를 만들 수 있는 API
 console.log(buf); // <Buffer 48 69>
-// buffer는 UTF-8로 변환되어 보관된다.
+// buffer는 UTF-8로 변환되어 보관된다. - unicode
 
 // Array 형태로 되어있기 때문에 인덱스로 접근할 수 있다.
 // 배열을 출력하면 ASCII 코드가 출력된다.
@@ -9,6 +11,11 @@ console.log(buf[1]); // i -> 105
 console.log(buf.length); // 2
 
 console.log(buf.toString()); // Hi
+/**
+ * toString에 인코딩을 전달할 수 있다 - 기본값은 utf-8
+ * 'Hi' -> base64 -> 'SGk='
+ */
+console.log(buf.toString("base64"));
 
 // create
 // allocation의 약어 : 배당, 할당

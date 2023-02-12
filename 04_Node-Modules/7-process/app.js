@@ -12,10 +12,11 @@ console.log(process.cpuUsage()); // 현재 실행되는 프로세스의 CPU 사�
 
 setTimeout(() => {
   // 콜백함수를 0ms 뒤에 실행하는 함수
-  // 아래쪽의 process.nextTict
+  // 아래쪽의 process.nextTick 다음에 실행 됨
   console.log("setTimeout");
 }, 0);
 
+// 태스크 큐 제일 앞에 등록
 process.nextTick(() => {
   console.log("nextTick");
 }); // 지금은 아닌데 현재 수행되고 있는 코드가 완료되면 등록한 콜백함수를 테스크 큐에 등록

@@ -5,7 +5,7 @@
 ## 4.2. 노드 관련 필수사이트 북마크 하기
 
 - https://nodejs.org/dist/latest-v16.x/docs/api/
-- https://nodejs.dev/learn
+- https://nodejs.dev/en/learn/
 
 ## 4.3. 글로벌 오브젝트 - 소스 공부법
 
@@ -18,6 +18,18 @@
 - node 04_Node-Modules/2-console/app.js
 - console.time, timeEnd - 성능 테스트를 하고 싶을 때
 - trace 어디에서 호출되었는지 확인할 때 사용
+- console
+  - console.log : 개발 시 사용
+  - console.info : 정보
+  - console.warn : 경고
+  - console.error : 에러, 사용자 에러, 시스템 에러
+  - console.assert : assert(조건, 메시지) 조건이 거짓일 때만 메시지 출력
+  - console.table : 배열을 테이블 형식으로 출력
+  - console.dir : 객체를 콘솔에 표시할 때 사용
+    - console.log와 같지만 옵션을 전달해서 사용할 수 있음
+  - console.time, timeEnd : 시간 측정
+  - console.count : 몇 번 호출되었는지 확인
+  - console.trace : 이 함수가 어디서 호출되었는지 확인
 
 ## 4.5. this란(브라우저와의 차이점)
 
@@ -57,6 +69,7 @@
 
 ## 4.10. 타이머와 콜스택의 연관
 
+- 콜스택과 태스크 큐를 넘나들 수 있는 타이머
 - global에 정의되어 있기 때문에 모듈을 import(require)를 하지 않아도 됨
 - setInterval
 - setTimeout
@@ -109,12 +122,14 @@
     - 반대로 다운속도 보다 보는 속도가 빠르면 버퍼링에 걸렸다고 할 수 있음
   - HLS 플레이어에서 지원
 
-- 컴퓨터에서 큰 사이즈의 파일을 읽을 때
+- 마찬가지로 컴퓨터에서 큰 사이즈의 파일을 읽을 때
   - 메모리에 파일을 올리고 사용하는데
   - 파일을 버퍼와 스트림을 이용해서 조금씩 가져옴
 
 ## 4.15. 버퍼, 제대로 알아보기
 
+- 버퍼 : 고정된 사이즈의 메모리 덩어리다(Fixed-size chunk of memory)
+- 숫자의 배열이라고 생각하면 됨(array of integers, byte of data)
 - fs.readFile로 읽을 때 인코딩을 정해주지 않으면 Buffer의 내용을 그대로 보여줌
 - c, c++, go 같이 메모리를 직접 관리할 수 있는 언어는 버퍼에 대해 들어봤을 수 있다
 - 하지만 자바스크립트만 사용했다면 익숙하지 않을 수 있음
