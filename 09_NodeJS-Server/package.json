@@ -1,0 +1,15 @@
+{
+  "name": "09_nodejs-server",
+  "version": "1.0.0",
+  "description": "- Node.js 만을 사용해서 간단한 서버를 만들어 보자 - 자주 쓰는 템플릿 엔진도 사용해 보자",
+  "main": "1-http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.8"
+  }
+}
