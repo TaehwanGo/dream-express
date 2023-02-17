@@ -14,8 +14,27 @@ const server = http.createServer((req, res) => {
   console.log(req.httpVersion);
   console.log(req.method);
   console.log(req.url);
-
-  res.write("Hello World!!");
+  const url = req.url;
+  if (url === "/") {
+    // HTML을 전달해보자
+    res.setHeader("Content-Type", "text/html");
+    res.write("<html>");
+    res.write("<head><title>My First Page</title></head>");
+    res.write("<body><h1>Hello from my Node.js Server!</h1></body>");
+    res.write("</html>");
+  } else if (url === "/courses") {
+    res.setHeader("Content-Type", "text/html");
+    res.write("<html>");
+    res.write("<head><title>My Courses</title></head>");
+    res.write("<body><ul><li>Node.js</li><li>React</li></ul></body>");
+    res.write("</html>");
+  } else {
+    res.setHeader("Content-Type", "text/html");
+    res.write("<html>");
+    res.write("<head><title>Not Found</title></head>");
+    res.write("<body><h1>Page not found!</h1></body>");
+    res.write("</html>");
+  }
   res.end();
 });
 
