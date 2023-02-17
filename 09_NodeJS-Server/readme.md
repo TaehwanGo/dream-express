@@ -26,3 +26,7 @@
 npm init -y
 npm install ejs
 ```
+
+## 9.5 JSON 보내주기(그리고 왜?)
+
+- postman을 이용해서 POST 메소드로 데이터를 보내보자
