@@ -125,3 +125,12 @@
   - `GET /posts/1/tags` -> `GET /tags/?postId=1`
     - what이 명확하지 않다
   - `GET /tags/?query=cool` : good
+
+## 10.4 보통의 Rest APIs 예제(기업 사례)
+
+- 참고 : https://developers.google.com/youtube/v3/docs/videos/list
+  - 유튜브 API 사례
+
+## 10.5 진정한 Rest APIs 예제(기업 사례)
+
+- https://docs.github.com/en/rest
