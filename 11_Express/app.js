@@ -48,10 +48,58 @@ const app = express();
 // });
 
 // 포스트맨을 이용해서 POST 요청을 보내보자
-app.use(express.json()); // json 형태의 데이터를 파싱해준다 -> req.body에 저장
-app.post("/", (req, res, next) => {
-  console.log(req.body);
-  res.send("POST");
+// app.use(express.json()); // json 형태의 데이터를 파싱해준다 -> req.body에 저장
+// app.post("/", (req, res, next) => {
+//   console.log(req.body);
+//   res.send("POST");
+// });
+
+import fs from "fs";
+// 비동기적 에러 처리
+app.get("/file", (req, res) => {
+  fs.readFile("./file.txt", (err, data) => {
+    if (err) {
+      res.sendStatus(404);
+    }
+  });
 });
+
+// 동기적 에러 처리
+app.get("/file1", (req, res) => {
+  try {
+    const data = fs.readFileSync("./file.txt");
+    res.send(data);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+});
+
+// 프로미스를 이용한 에러 처리 - catch를 하지않으면 비동기적으로 에러가 발생하는데 이것은 마지막에 app.use에서 처리가 되지 않는다
+app.get("/file2", (req, res, next) => {
+  fs.promises
+    .readFile("./file.txt")
+    .then((data) => res.send(data))
+    .catch(res.sendStatus(404));
+});
+
+import fsAsync from "fs/promises"; // fs.promises와 동일하다
+// 프로미스를 이용한 에러 처리 - async/await
+app.get("/file3", async (req, res, next) => {
+  try {
+    // const data = await fs.promises.readFile("./file.txt");
+    const data = await fsAsync.readFile("./file1.txt");
+    res.send(data);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+});
+
+// 공통적으로 에러 핸들러를 등록할 수 있다 - 하지만 적절한 에러 메세지를 보내주는 것이 더 좋다
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(500).send("Sorry try again later");
+});
+
+// promise rejection 에러 처리 => Express 5에서 부터 지원할 예정 : 현재 4.18.2
 
 app.listen(8080);
