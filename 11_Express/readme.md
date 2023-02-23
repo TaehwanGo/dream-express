@@ -144,3 +144,13 @@ router.get("/", (req, res, next) => {
 ```
 
 - router.메서드("경로", 핸들러)
+
+## 11.11 유용한 내부 미들웨어들
+
+- express.json()
+  - body parsing하는데 쓰임
+- express.urlencoded({ extended: false })
+  - form data를 body로 parsing하는데 쓰임
+- express.static("public")
+  - 정적 파일을 제공하는데 쓰임
+  - public 폴더에 있는 파일들을 제공
