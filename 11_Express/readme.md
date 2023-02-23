@@ -90,3 +90,19 @@ app.listen(3000, () => {
 ### res.send() 이후엔 return을 붙여서 종료하게 하자!
 
 ### 미들웨어는 next()를 호출해야 다음으로 넘어간다!
+
+## 11.7 Post 처리하기
+
+- postman으로 body -> raw -> json으로 보내기
+- req.body는 undefined가 나온다
+  - middle웨어를 사용해야 된다
+
+```js
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.post("/posts", (req, res, next) => {
+  console.log(req.body);
+  res.send("...");
+});
+```
