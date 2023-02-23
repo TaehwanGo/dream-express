@@ -116,3 +116,31 @@ app.post("/posts", (req, res, next) => {
 
 - 5버전에서 await이나 promise를 return하면 처리 됨
 - 4버전에선 `npm i express-async-errors`를 설치해야함
+
+## 11.10 라우터 101
+
+```js
+const express = require("express");
+const app = express();
+
+const postsRouter = require("./routes/posts");
+const usersRouter = require("./routes/users");
+
+app.use("/posts", postsRouter);
+app.use("/users", usersRouter);
+
+app.listen(3000, () => {
+  console.log("Example app listening on port 3000!");
+});
+```
+
+```js
+const express = require("express");
+const router = express.Router();
+
+router.get("/", (req, res, next) => {
+  res.send("...");
+});
+```
+
+- router.메서드("경로", 핸들러)
