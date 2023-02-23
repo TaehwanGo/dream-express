@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 const app = express();
 
 // app.get("/sky/:id", (req, res, next) => {

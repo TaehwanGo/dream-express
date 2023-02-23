@@ -111,3 +111,8 @@ app.post("/posts", (req, res, next) => {
 
 - 에러 처리 : 예상하지 못한 상황에 대한 처리
 - 서버가 에러를 처리하지 못해서 죽으면 많은 클라이언트들이 불편함을 겪는다
+
+## 11.9 비동기 에러 처리 하는 방법 - 최신버전
+
+- 5버전에서 await이나 promise를 return하면 처리 됨
+- 4버전에선 `npm i express-async-errors`를 설치해야함
