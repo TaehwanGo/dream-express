@@ -131,3 +131,9 @@
 
 - deleting tweet
 - Response 204
+
+## 12.4 REST APIs 개발을 위한 포스트맨 셋업
+
+- 자주 사용할 API를 Collection에 미리 만들어두면 편하다
+- variables을 사용하면 편하다
+  - {{variable_name}} 형태로 사용하면 된다
