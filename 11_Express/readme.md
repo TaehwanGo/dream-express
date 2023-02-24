@@ -154,3 +154,12 @@ router.get("/", (req, res, next) => {
 - express.static("public")
   - 정적 파일을 제공하는데 쓰임
   - public 폴더에 있는 파일들을 제공
+
+## 11.12 CORS란? 개념과 처리 방법
+
+- Cross-Origin Resource Sharing
+  - 다른 도메인에서 리소스를 요청할 때 발생하는 문제
+  - e.g.
+    - http://localhost:3000에서 http://localhost:4000으로 요청을 보낼 때
+- CORS 처리 방법
+  - Access-Control-Allow-Origin 헤더를 추가
