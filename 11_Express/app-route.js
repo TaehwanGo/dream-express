@@ -2,8 +2,20 @@ import express from "express";
 import postRouter from "./router/post.js";
 import userRouter from "./router/user.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import morgan from "morgan";
+import helmet from "helmet";
 
 const app = express();
+
+// helmet 미들웨어 - 보안 관련 헤더 설정
+app.use(helmet());
+
+// morgan 미들웨어 - 로그 출력(사용자에게 요청을 받을 때 마다 로그를 출력)
+app.use(morgan()); // dev, short, common, combined
+
+// 쿠키 파서 미들웨어
+app.use(cookieParser()); // req.cookies.쿠키이름 으로 접근 가능
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

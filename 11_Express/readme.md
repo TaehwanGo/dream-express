@@ -163,3 +163,20 @@ router.get("/", (req, res, next) => {
     - http://localhost:3000에서 http://localhost:4000으로 요청을 보낼 때
 - CORS 처리 방법
   - Access-Control-Allow-Origin 헤더를 추가
+
+## 11.13 유용한 외부 미들웨어들
+
+- cookie-parser
+  - 쿠키를 파싱하는데 쓰임
+- morgan
+  - 로깅하는데 쓰임
+- helmet
+  - 보안에 쓰임
+  - X-Content-Type-Options, X-Frame-Options, X-XSS-Protection 등을 추가
+  - xssFilter, noSniff 등을 추가
+- express-session
+  - 세션을 사용할 수 있게 해줌
+- passport
+  - 인증에 쓰임
+- multer
+  - 파일 업로드에 쓰임
