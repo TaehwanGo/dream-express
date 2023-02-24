@@ -137,3 +137,24 @@
 - 자주 사용할 API를 Collection에 미리 만들어두면 편하다
 - variables을 사용하면 편하다
   - {{variable_name}} 형태로 사용하면 된다
+
+## 12.5 REST APIs 개발을 위한 리액트 프론트엔드 셋업
+
+(1) yarn 을 설치합니다
+
+(2) yarn.lock 파일을 참고해서 패키지를 설치합니다
+
+```
+yarn install --frozen-lockfile
+```
+
+(3) node 버전을 16버전대로 낮춥니다
+
+nvm은 노드 버전 관리 도구 중 하나입니다
+
+```
+nvm ls
+nvm use v16.15.0
+```
+
+저는 v16.15.0 버전이 설치되어 있어서 위와 같이 사용했습니다
