@@ -39,3 +39,95 @@
 #### 포스트를 username으로 검색하기
 
 - GET /posts?username=:username
+
+## 12.3 요구 사항 분석, REST APIs 디자인 하기(Ellie의 구현 살펴보기)
+
+- https://www.notion.so/API-Spec-Tweets-b04541cf06f84b83bf4891abfaa27d03
+
+### API Spec
+
+#### Tweet Schema
+
+```json
+{
+  id: string,  // 트윗 아이디
+  text: string,  // 트윗 텍스트
+  createdAt: Date, // 트윗 생성 날짜
+  name: string,  // 사용자 이름
+  username: string,  // 사용자 닉네임 (아이디)
+  url: string (optional) // 사용자 프로파일 사진 URL
+}
+```
+
+#### GET /tweets
+
+- get all tweets
+- 200
+
+```json
+[
+  {
+    id: string,
+    text: string,
+    createdAt: Date,
+    name: string,
+    username: string,
+    url: string (optional)
+  },
+  ...
+]
+```
+
+#### POST /tweets
+
+- creating new tweet
+
+```json
+{
+  text: string,
+  name: string,
+  username: string,
+  url: string (optional)
+}
+```
+
+#### GET /tweets?username=:username
+
+- get all tweets for user's username
+
+```json
+{
+   [tweet, tweet ....]
+}
+```
+
+#### GET /tweets/:id
+
+- get tweet by id
+
+```json
+{
+   tweet
+}
+```
+
+#### PUT /tweets/:id
+
+- updating tweet
+
+```json
+// Request
+{
+   text
+}
+
+// Response
+{
+   tweet
+}
+```
+
+#### DELETE /tweets/:id
+
+- deleting tweet
+- Response 204
