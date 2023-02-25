@@ -158,3 +158,32 @@ nvm use v16.15.0
 ```
 
 저는 v16.15.0 버전이 설치되어 있어서 위와 같이 사용했습니다
+
+## 12.6 트윗 REST APIs 구현하기
+
+## 12.7 트윗 REST APIs - 프로젝트 셋업 및 구조 만들기
+
+```
+npm i express cors helmet morgan nodemon express-async-errors
+```
+
+### 반복적인 코드를 빠르게 작성하는 방법
+
+- snippet을 사용하면 빠르게 반복적인 코드를 작성할 수 있다
+
+- cmd + p 를 누르고 `> snippet`을 입력하면 snippet을 검색할 수 있다
+
+  - Preferences: Configure User Snippets 를 선택하면 snippet을 설정할 수 있다
+
+- javascript.json
+
+```json
+// 예시
+
+  "Express Callback": {
+    "prefix": "rr",
+    "body": ["(req, res, next) => {$1}"],
+    "description": "Express Callback"
+  }
+
+```
