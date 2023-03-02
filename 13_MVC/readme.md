@@ -26,3 +26,17 @@
 ## 13.5 async 비동기 함수들의 매력 포인트
 
 - async 비동기 함수들은 promise를 반환한다.
+
+## 13.6 프론트엔드 코드 개선
+
+```js
+async function postTweet(text) {
+  return this.http.fetch(`/tweets`, {
+    method: "POST",
+    body: JSON.stringify({ text, username: "tony", name: "Tony" }),
+  });
+}
+```
+
+- Promise 형태로 바로 리턴
+- 만약 에러가 발생된다면 Promise.reject()를 리턴한다.
