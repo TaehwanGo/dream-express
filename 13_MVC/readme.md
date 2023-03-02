@@ -11,3 +11,9 @@
 - view : router
 - controller : logic
 - model : data
+
+## 13.2 현재 서버 코드의 문제점 개선하기
+
+- router에 모든 로직이 들어있음
+
+## 13.3 서버에 Data층을 만들어보기

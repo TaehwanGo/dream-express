@@ -1,24 +1,6 @@
 import express from "express";
 import "express-async-errors";
-
-let tweets = [
-  {
-    id: "1",
-    text: "Hello World",
-    createdAt: Date.now().toString(),
-    name: "Bob",
-    username: "bob",
-    url: "https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800",
-  },
-  {
-    id: "2",
-    text: "Hello Tony",
-    createdAt: Date.now().toString(),
-    name: "Tony",
-    username: "tony",
-    url: "https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800",
-  },
-];
+import * as tweetRepository from "../data/tweet.js";
 
 const router = express.Router();
 
@@ -27,15 +9,15 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
   const username = req.query.username;
   const data = username
-    ? tweets.filter((tweet) => tweet.username === username)
-    : tweets;
+    ? tweetRepository.getByUsername(username)
+    : tweetRepository.getAll();
   res.status(200).json(data);
 });
 
 // GET /tweets/:id
 router.get("/:id", (req, res, next) => {
   const id = req.params.id;
-  const tweet = tweets.find((tweet) => tweet.id === id);
+  const tweet = tweetRepository.getById(id);
   if (tweet) {
     res.status(200).json(tweet);
   } else {
@@ -46,15 +28,7 @@ router.get("/:id", (req, res, next) => {
 // POST /tweets
 router.post("/", (req, res, next) => {
   const { text, name, username } = req.body;
-  const tweet = {
-    id: Date.now().toString(),
-    text,
-    createdAt: new Date(),
-    name,
-    username,
-  };
-  // 제일 앞에 추가
-  tweets.unshift(tweet);
+  const tweet = tweetRepository.create(text, name, username);
   res.status(201).json(tweet);
 });
 
@@ -62,9 +36,8 @@ router.post("/", (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const text = req.body.text;
-  const tweet = tweets.find((tweet) => tweet.id === id);
+  const tweet = tweetRepository.update(id, text);
   if (tweet) {
-    tweet.text = text;
     res.status(200).json(tweet);
   } else {
     res.status(404).json({ message: `Tweet id(${id}) not found.` });
@@ -74,7 +47,7 @@ router.put("/:id", (req, res, next) => {
 // DELETE /tweets/:id
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-  tweets = tweets.filter((tweet) => tweet.id !== id);
+  tweetRepository.remove(id);
   res.sendStatus(204);
 });
 
