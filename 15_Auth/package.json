@@ -1,0 +1,16 @@
+{
+  "name": "15_auth",
+  "version": "1.0.0",
+  "description": "## 15.1 Auth 챕터 소개",
+  "main": "1-bcrypt.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.0"
+  }
+}
