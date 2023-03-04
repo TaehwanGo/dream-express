@@ -82,3 +82,12 @@ type MeResponse = {
 ## 16.5 로그인 Rest APIs 개발을 위한 포스트맨 셋업
 
 - auth 라우터, 컨트롤러, 모델 구현
+
+## 16.6 가입, 로그인 Rest APIs 구현하기
+
+- 패키지 설치
+
+  - bcrypt
+  - jsonwebtoken
+
+- authRouter 추가
