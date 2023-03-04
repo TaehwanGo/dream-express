@@ -35,3 +35,13 @@
 - email normalization
   - 대소문자 구분 없이
   - 공백 제거
+
+## 14.5 드위터 유효성 검사 적용해보기
+
+- post, put에 적용해보자
+- controller에선 정말 중요한 비지니스 로직만 남기고 싶어서
+
+  - 유효성 검사는 라우터쪽에서 해보자
+
+- [ ] Todo
+  - contract testing: client - server
