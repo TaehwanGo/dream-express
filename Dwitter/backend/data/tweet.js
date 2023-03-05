@@ -1,44 +1,55 @@
+import * as userRepository from "./auth.js";
+
 let tweets = [
   {
     id: "1",
     text: "Hello World",
-    createdAt: Date.now().toString(),
-    name: "Bob",
-    username: "bob",
-    url: "https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800",
+    createdAt: new Date().toString(),
+    userId: "1",
   },
   {
     id: "2",
     text: "Hello Tony",
-    createdAt: Date.now().toString(),
-    name: "Tony",
-    username: "tony",
-    url: "https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800",
+    createdAt: new Date().toString(),
+    userId: "1",
   },
 ];
 
 export async function getAll() {
-  return tweets;
+  return Promise.all(
+    tweets.map(async (tweet) => {
+      const { username, name, url } = await userRepository.findById(
+        tweet.userId
+      );
+      return { ...tweet, username, name, url };
+    })
+  );
 }
 
-export async function getByUsername(Username) {
-  return tweets.filter((tweet) => tweet.username === Username);
+export async function getAllByUsername(username) {
+  return getAll().then((tweets) =>
+    tweets.filter((tweet) => tweet.username === username)
+  );
 }
 
 export async function getById(id) {
-  return tweets.find((tweet) => tweet.id === id);
+  const found = tweets.find((tweet) => tweet.id === id);
+  if (!found) {
+    return null;
+  }
+  const { username, name, url } = await userRepository.findById(found.userId);
+  return { ...found, username, name, url };
 }
 
-export async function create(text, name, username) {
+export async function create(text, userId) {
   const tweet = {
     id: Date.now().toString(),
     text,
     createdAt: new Date(),
-    name,
-    username,
+    userId,
   };
   tweets = [tweet, ...tweets];
-  return tweet;
+  return getById(tweet.id);
 }
 
 export async function update(id, text) {
@@ -46,7 +57,7 @@ export async function update(id, text) {
   if (tweet) {
     tweet.text = text;
   }
-  return tweet;
+  return getById(tweet.id);
 }
 
 /**
