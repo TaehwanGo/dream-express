@@ -27,16 +27,29 @@ export async function createTweet(req, res) {
 export async function updateTweet(req, res) {
   const id = req.params.id;
   const text = req.body.text;
-  const tweet = await tweetRepository.update(id, text);
-  if (tweet) {
-    res.status(200).json(tweet);
-  } else {
-    res.status(404).json({ message: `Tweet id(${id}) not found.` });
+  const tweet = await tweetRepository.getById(id);
+  if (!tweet) {
+    return res.status(404);
   }
+  if (tweet.userId !== req.userId) {
+    // 해당 트윗 유저아이디와 로그인된 유저아이디가 다르면
+    return res.status(403);
+  }
+
+  const updated = await tweetRepository.update(id, text);
+  res.status(200).json(updated);
 }
 
 export async function deleteTweet(req, res) {
   const id = req.params.id;
+  const tweet = await tweetRepository.getById(id);
+  if (!tweet) {
+    return res.status(404);
+  }
+  if (tweet.userId !== req.userId) {
+    // 해당 트윗 유저아이디와 로그인된 유저아이디가 다르면
+    return res.status(403);
+  }
   await tweetRepository.remove(id);
   res.sendStatus(204);
 }
