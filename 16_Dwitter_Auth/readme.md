@@ -91,3 +91,7 @@ type MeResponse = {
   - jsonwebtoken
 
 - authRouter 추가
+
+## 16.7 Auth 미들웨어 구현하기
+
+- 토큰 유효성 검사

@@ -4,7 +4,7 @@ import "express-async-errors";
 import * as userRepository from "../data/auth.js";
 
 // TODO: Make it secure
-const jwtSecretKey = "DcN79cgoke$28#t*WPU30zinK7Y8yN4x";
+export const jwtSecretKey = "DcN79cgoke$28#t*WPU30zinK7Y8yN4x";
 const jwtExpiresInDays = "1d";
 const bcryptSaltRounds = 10;
 
@@ -46,4 +46,12 @@ export async function login(req, res) {
   }
   const token = createJwtToken(user.id);
   res.status(200).json({ token, username });
+}
+
+export async function me(req, res) {
+  const user = await userRepository.findById(req.userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  res.status(200).json({ token: req.token, username: user.username });
 }

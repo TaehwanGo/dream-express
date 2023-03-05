@@ -2,6 +2,7 @@ import express from "express";
 import { body } from "express-validator";
 import { validate } from "../middleware/validator.js";
 import * as authController from "../controller/auth.js";
+import { isAuth } from "../middleware/auth.js";
 
 const authRouter = express.Router();
 
@@ -30,6 +31,6 @@ const validateSignup = [
 
 authRouter.post("/signup", validateSignup, authController.signup);
 authRouter.post("/login", validateCredential, authController.login);
-// TODO : me는 미들웨어로 구현
+authRouter.post("/me", isAuth, authController.me); // 로그인 한 다음 내가 유효한지 아닌지 확인 후 컨트롤러에서 처리
 
 export default authRouter;
