@@ -2,11 +2,11 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "express-async-errors";
 import * as userRepository from "../data/auth.js";
+import { config } from "../config.js";
 
-// TODO: Make it secure
-export const jwtSecretKey = "DcN79cgoke$28#t*WPU30zinK7Y8yN4x";
-const jwtExpiresInDays = "1d";
-const bcryptSaltRounds = 10;
+export const jwtSecretKey = config.jwt.secretKey;
+const jwtExpiresInDays = config.jwt.expiresInSec;
+const bcryptSaltRounds = config.bcrypt.saltRounds;
 
 /**
  * @param {string} id
