@@ -1,7 +1,8 @@
 export default class TweetService {
-  constructor(http, tokenStorage) {
+  constructor(http, tokenStorage, socket) {
     this.http = http;
     this.tokenStorage = tokenStorage;
+    this.socket = socket;
   }
   async getTweets(username) {
     const query = username ? `?username=${username}` : "";
@@ -15,6 +16,7 @@ export default class TweetService {
     return this.http.fetch(`/tweets`, {
       method: "POST",
       headers: this.getHeaders(),
+      // FIXME : 현재 소켓으로 바뀌면서 username과 name은 사용되지 않음
       body: JSON.stringify({ text, username: "tony", name: "Tony" }),
     });
   }
@@ -39,5 +41,9 @@ export default class TweetService {
     return {
       Authorization: `Bearer ${token}`,
     };
+  }
+
+  onSync(callback) {
+    return this.socket.onSync("tweets", callback);
   }
 }

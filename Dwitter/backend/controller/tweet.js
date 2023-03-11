@@ -20,10 +20,11 @@ export async function getTweet(req, res) {
 }
 
 export async function createTweet(req, res) {
-  const { text, name, username } = req.body;
-  const tweet = await tweetRepository.create(text, name, username);
-  res.status(201).json(tweet);
-  getSocketIO().emit("tweets", tweet);
+  const { text } = req.body;
+  // console.log("createTweet, req.body", req.body);
+  const tweet = await tweetRepository.create(text, req.userId);
+  res.status(201).json(tweet); // REST API에서는 201과 생성된 트윗을 보내준다.
+  getSocketIO().emit("tweets", tweet); // socket.io를 통해서도 생성된 tweet을 보내준다.
 }
 
 export async function updateTweet(req, res) {

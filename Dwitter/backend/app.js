@@ -5,8 +5,7 @@ import helmet from "helmet";
 import "express-async-errors";
 import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
-import { Server } from "socket.io";
-import { initSocket } from "./connection/socket.js";
+import { getSocketIO, initSocket } from "./connection/socket.js";
 
 const app = express();
 app.use(express.json());
@@ -27,3 +26,5 @@ app.use((req, res, next) => {
 const server = app.listen(4000, () => console.log("Listening on port 4000"));
 
 initSocket(server);
+
+// getSocketIO().on("tony", (arg) => console.log("on tony", arg)); // not working

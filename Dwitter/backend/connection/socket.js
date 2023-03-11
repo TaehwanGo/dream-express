@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
-import { config } from "../config";
+import { config } from "../config.js";
 
 class Socket {
   constructor(server) {
@@ -25,6 +25,7 @@ class Socket {
 
     this.io.on("connection", (socket) => {
       console.log("Socket client connected");
+      socket.on("tony", (arg) => console.log("on tony", arg)); // working
     });
   }
 }
