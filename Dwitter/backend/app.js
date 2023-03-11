@@ -6,6 +6,7 @@ import "express-async-errors";
 import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { Server } from "socket.io";
+import { initSocket } from "./connection/socket.js";
 
 const app = express();
 app.use(express.json());
@@ -24,14 +25,5 @@ app.use((req, res, next) => {
   res.sendStatus(500);
 });
 const server = app.listen(4000, () => console.log("Listening on port 4000"));
-const socketIO = new Server(server, { cors: { origin: "*" } });
 
-socketIO.on("connection", (socket) => {
-  console.log("connected to socket");
-  socketIO.emit("dwitter", "hello from the server");
-  socketIO.emit("dwitter", "hello from the server2");
-});
-
-// setInterval(() => {
-//   socketIO.emit("dwitter", "hello from the server3");
-// }, 1000);
+initSocket(server);

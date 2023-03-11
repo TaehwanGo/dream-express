@@ -18,3 +18,25 @@ npm i socket.io
 # frontend
 npm i socket.io-client
 ```
+
+## 18.3 실시간 트윗 받아오기
+
+## 18.4 실시간 트윗 받아오기 - 서버
+
+```js
+// js에서 싱글톤을 활용해서 인스턴스를 하나만 만들어서 사용하는 방법
+
+let socket;
+export function initSocket(server) {
+  if (!socket) {
+    socket = new Socket(server);
+  }
+}
+
+export function getSocketIO() {
+  if (!socket) {
+    throw new Error("Please call init first");
+  }
+  return socket.io;
+}
+```
