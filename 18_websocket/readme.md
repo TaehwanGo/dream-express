@@ -98,3 +98,19 @@ io.on("connection", (socket) => {
 
 - 소켓을 수동으로 연결합니다.
 - https://socket.io/docs/v4/client-api/#socketconnect
+
+## 18.6 소켓에서도 중요한 Auth
+
+```js
+// client/network/socket.js
+import socket from "socket.io-client";
+
+/**
+ * 웹소켓에서 표준으로 정해진 auth를 사용해야 한다 - 조금 더 보안에 강화된 방법 !
+ * 만약 socket(this.baseURL, { query: { token: getAccessToken() } }) 이렇게 하면
+ * - 브라우저에서 콘솔에서도 토큰을 확인할 수 있고 로그에도 남을 수 있다
+ */
+const io = socket(baseURL, {
+  auth: (cb) => cb({ token: getAccessToken() }),
+});
+```

@@ -2,6 +2,11 @@ import socket from "socket.io-client";
 
 export default class Socket {
   constructor(baseURL, getAccessToken) {
+    /**
+     * 웹소켓에서 표준으로 정해진 auth를 사용해야 한다 - 조금 더 보안에 강화된 방법 !
+     * 만약 socket(this.baseURL, { query: { token: getAccessToken() } }) 이렇게 하면
+     * - 브라우저에서 콘솔에서도 토큰을 확인할 수 있고 로그에도 남을 수 있다
+     */
     this.io = socket(baseURL, {
       auth: (cb) => cb({ token: getAccessToken() }),
     });
