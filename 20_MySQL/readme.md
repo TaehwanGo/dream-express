@@ -170,3 +170,54 @@ ADD CONSTRAINT `id`
 
 - MySQL 8.0.32 버전에서 테이블 조회 시 워크벤치가 꺼지는 현상
   - 8.0.31 버전으로 낮춰서 다시 설치
+
+## 20.4 노드 서버에서 연결하기
+
+- dwitter backend에 mysql2 설치
+
+  - npm i mysql2
+
+- db 관련 설정을 해주고 설정 데이터는 .env 파일에 추가한 뒤 config.js에서 불러온다
+
+## 20.5 드위터 Auth관련 MySQL 사용하기
+
+- 사용자 데이터를 메모리가 아닌 db에 저장해보자
+
+#### createUser(user)
+
+```js
+// sign up : gth1123, 12345
+[
+  ResultSetHeader {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 1, // insert된 id, 즉 user table의 pk
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0
+  },
+  undefined
+]
+```
+
+#### findByUsername(username)
+
+```js
+[
+  [
+    {
+      id: 1,
+      username: "gth1123",
+      password: "$2b$10$qqr6.NOqelpjueylMfzVFOVhuZXKSnymkSnksbO4JZQvHlFe6iray",
+      name: "Tony",
+      email: "gth1123@naver.com",
+      url: "https://mblogthumb-phinf.pstatic.net/20160817_259/retspe_14714118890125sC2j_PNG/%C7%C7%C4%AB%C3%F2_%281%29.png?type=w800",
+    },
+  ],
+  // ...
+];
+```
+
+### 이슈
+
+/auth/me 응답이 되지 않는다

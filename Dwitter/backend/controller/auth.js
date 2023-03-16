@@ -49,6 +49,7 @@ export async function login(req, res) {
 }
 
 export async function me(req, res) {
+  console.log("get me", req.userId);
   const user = await userRepository.findById(req.userId);
   if (!user) {
     return res.status(404).json({ message: "User not found" });

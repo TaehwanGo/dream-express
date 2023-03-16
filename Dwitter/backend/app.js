@@ -6,6 +6,7 @@ import "express-async-errors";
 import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { getSocketIO, initSocket } from "./connection/socket.js";
+import { connectDB } from "./db/database.js";
 
 const app = express();
 app.use(express.json());
@@ -23,6 +24,9 @@ app.use((req, res, next) => {
   console.error(error);
   res.sendStatus(500);
 });
+
+export const dbConnection = await connectDB();
+
 const server = app.listen(4000, () => console.log("Listening on port 4000"));
 
 initSocket(server);

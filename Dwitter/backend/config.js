@@ -20,4 +20,10 @@ export const config = {
   host: {
     port: parseInt(required("PORT", 4000)),
   },
+  db: {
+    host: required("DB_HOST"),
+    user: required("DB_USER"),
+    database: required("DB_NAME"),
+    password: required("DB_PASSWORD"),
+  },
 };
