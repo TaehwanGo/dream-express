@@ -217,7 +217,3 @@ ADD CONSTRAINT `id`
   // ...
 ];
 ```
-
-### 이슈
-
-/auth/me 응답이 되지 않는다

@@ -31,6 +31,6 @@ const validateSignup = [
 
 authRouter.post("/signup", validateSignup, authController.signup);
 authRouter.post("/login", validateCredential, authController.login);
-authRouter.post("/me", isAuth, authController.me); // 로그인 한 다음 내가 유효한지 아닌지 확인 후 컨트롤러에서 처리
+authRouter.get("/me", isAuth, authController.me); // 로그인 한 다음 내가 유효한지 아닌지 확인 후 컨트롤러에서 처리
 
 export default authRouter;
