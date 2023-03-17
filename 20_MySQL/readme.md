@@ -245,3 +245,8 @@ ORDER BY tw.createdAt DESC; -- DESC 내림 차순(최신순)
 ### sql의 문제점
 
 - 오타가 있을 경우 에러가 발생할 수 있다
+
+## 20.7 MySQL 정리 하면서
+
+- MySQL에서 많이 쓰이는 예제들
+  - https://dev.mysql.com/doc/refman/8.0/en/examples.html
