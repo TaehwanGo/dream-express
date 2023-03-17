@@ -27,16 +27,18 @@ export async function createTweet(req, res) {
   getSocketIO().emit("tweets", tweet); // socket.io를 통해서도 생성된 tweet을 보내준다.
 }
 
-export async function updateTweet(req, res) {
+export async function updateTweet(req, res, next) {
   const id = req.params.id;
   const text = req.body.text;
   const tweet = await tweetRepository.getById(id);
   if (!tweet) {
-    return res.status(404);
+    res.status(404).json({ message: `Tweet id(${id}) not found.` });
+    return;
   }
+
   if (tweet.userId !== req.userId) {
-    // 해당 트윗 유저아이디와 로그인된 유저아이디가 다르면
-    return res.status(403);
+    res.status(403).json({ message: "Not authorized" });
+    return;
   }
 
   const updated = await tweetRepository.update(id, text);

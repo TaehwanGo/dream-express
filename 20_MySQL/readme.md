@@ -217,3 +217,31 @@ ADD CONSTRAINT `id`
   // ...
 ];
 ```
+
+## 20.6 드위터 Tweet관련 MySQL 사용하기
+
+- Things to do
+  - join query
+  - CRUD
+
+### getAll
+
+- join query
+
+```sql
+SELECT tw.id, tw.text, tw.createdAt, tw.userId, us.username, us.name, us.url
+FROM tweets as tw JOIN users as us
+ON tw.userId=us.id
+ORDER BY tw.createdAt DESC; -- DESC 내림 차순(최신순)
+```
+
+- sql 예약어는 대문자로 쓰는 것이 좋다
+
+### 이슈
+
+- 정상적인 응답이 아닌 경우 무한 포스트맨이 로딩에 걸린다
+  - controller에서 return이 있는 경우에 무한 로딩에 걸렸었는데 다시 잘된다? 뭐지
+
+### sql의 문제점
+
+- 오타가 있을 경우 에러가 발생할 수 있다
