@@ -6,7 +6,7 @@ import "express-async-errors";
 import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { initSocket } from "./connection/socket.js";
-import { connectDB, sequelize } from "./db/database.js";
+import { sequelize } from "./db/database.js";
 
 const app = express();
 app.use(express.json());
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   res.sendStatus(500);
 });
 
-export const dbConnection = await connectDB();
+// export const dbConnection = await connectDB();
 
 sequelize.sync().then((client) => {
   // console.log(client);

@@ -1,4 +1,4 @@
-import { dbConnection } from "../app.js";
+// import { dbConnection } from "../app.js";
 import SQ from "sequelize";
 import { sequelize } from "../db/database.js";
 
@@ -7,7 +7,7 @@ const DataTypes = SQ.DataTypes;
 /**
  * user로 이름을 지으면 users로 s가 붙어서 생성된다
  */
-const User = sequelize.define(
+export const User = sequelize.define(
   "user",
   {
     id: {
