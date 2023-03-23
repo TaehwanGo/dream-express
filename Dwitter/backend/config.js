@@ -26,4 +26,7 @@ export const config = {
     database: required("DB_NAME"),
     password: required("DB_PASSWORD"),
   },
+  mongodb: {
+    host: required("MONGO_DB_HOST"),
+  },
 };
