@@ -28,7 +28,7 @@ function mapOptionalUser(user) {
   return user
     ? {
         ...user,
-        id: user._id,
+        id: user._id.toString(),
       }
     : user;
 }
