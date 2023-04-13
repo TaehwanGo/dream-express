@@ -26,4 +26,10 @@ export const config = {
     database: required("DB_NAME"),
     password: required("DB_PASSWORD"),
   },
+  rateLimit: {
+    windowMs: 60000, // 1 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    // windowMs: 10000, // 10 seconds
+    // max: 10, // limit each IP to
+  },
 };

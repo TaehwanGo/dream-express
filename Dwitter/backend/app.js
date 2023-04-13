@@ -7,12 +7,14 @@ import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
 import { initSocket } from "./connection/socket.js";
 import { sequelize } from "./db/database.js";
+import rateLimiter from "./middleware/rate-limiter.js";
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(cors()); // 배포 시엔 신경을 써주자 지금은 "*"
 app.use(morgan("tiny"));
+app.use(rateLimiter);
 
 app.use("/tweets", tweetRouter);
 app.use("/auth", authRouter);
