@@ -111,3 +111,13 @@
 - 미들웨어로 express-rate-limit 라이브러리를 사용
 
 ## 27.6 백엔드 알고리즘 살펴보기
+
+- 실제 소스코드를 보면 몇줄 되지 않음
+- https://github.com/express-rate-limit/express-rate-limit
+
+## 27.7 프론트엔드 - Axios 사용하기
+
+### client side considerations
+
+- 429 응답을 받으면 특정한 시간 뒤에 재시도
+- 재시도 후에도 429 응답을 받으면 다시 좀 더 많은 시간텀을 가지고 재시도 + Jitter
