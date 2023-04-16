@@ -121,3 +121,25 @@
 
 - 429 응답을 받으면 특정한 시간 뒤에 재시도
 - 재시도 후에도 429 응답을 받으면 다시 좀 더 많은 시간텀을 가지고 재시도 + Jitter
+
+## 27.8 프론트엔드 - 재시도 구현하기
+
+```js
+/**
+ * axios instance를 첫 번째 인자로 전달해야 함
+ */
+axiosRetry(this.client, {
+  retries: 5, // 보통은 3번
+  retryDelay: (retryCount) => {
+    const delay = Math.pow(2, retryCount) * 100; // 100ms, 200ms, 400ms, 800ms, 1600ms
+    const jitter = delay * 0.1 * Math.random(); // delay의 10% 범위 내에서 랜덤으로 더해줌
+    return delay + jitter;
+  },
+  retryCondition: (error) => {
+    return axiosRetry.isNetworkOrIdempotentRequestError(error);
+  },
+});
+```
+
+- Idempotent : 여러 번 요청해도 결과가 같은 것
+  - GET, HEAD, OPTIONS, TRACE

@@ -1,7 +1,12 @@
 import axios from "axios";
+import axiosRetry from "axios-retry";
 
+const defaultRetryConfig = {
+  retries: 5,
+  initialDelayMs: 100,
+};
 export default class HttpClient {
-  constructor(baseURL, authErrorEventBus) {
+  constructor(baseURL, authErrorEventBus, config = defaultRetryConfig) {
     this.authErrorEventBus = authErrorEventBus;
     this.client = axios.create({
       baseURL,
@@ -9,6 +14,23 @@ export default class HttpClient {
         "Content-Type": "application/json",
       },
       withCredentials: true,
+    });
+    /**
+     * axios instance를 첫 번째 인자로 전달해야 함
+     */
+    axiosRetry(this.client, {
+      retries: config.retries, // 보통은 3번
+      retryDelay: (retryCount) => {
+        const delay = Math.pow(2, retryCount) * config.initialDelayMs; // 100ms, 200ms, 400ms, 800ms, 1600ms
+        const jitter = delay * 0.1 * Math.random(); // delay의 10% 범위 내에서 랜덤으로 더해줌
+        return delay + jitter;
+      },
+      retryCondition: (error) => {
+        return (
+          axiosRetry.isNetworkOrIdempotentRequestError(error) ||
+          error.response.status === 429
+        );
+      },
     });
   }
 
@@ -25,7 +47,7 @@ export default class HttpClient {
     };
 
     try {
-      const res = await this.client(req);
+      const res = await this.client(request);
       return res.data;
     } catch (error) {
       // status가 400번대 이거나 500번대인 경우
