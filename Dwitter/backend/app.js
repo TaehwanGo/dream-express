@@ -5,9 +5,11 @@ import helmet from "helmet";
 import "express-async-errors";
 import tweetRouter from "./router/tweets.js";
 import authRouter from "./router/auth.js";
-import { initSocket } from "./connection/socket.js";
+import { initSocket, getSocketIO } from "./connection/socket.js";
 import { sequelize } from "./db/database.js";
 import rateLimiter from "./middleware/rate-limiter.js";
+import { TweetController } from "./controller/tweet.js";
+import * as tweetRepository from "./data/tweet.js";
 
 const app = express();
 app.use(express.json());
@@ -16,7 +18,10 @@ app.use(cors()); // 배포 시엔 신경을 써주자 지금은 "*"
 app.use(morgan("tiny"));
 app.use(rateLimiter);
 
-app.use("/tweets", tweetRouter);
+app.use(
+  "/tweets",
+  tweetRouter(new TweetController(tweetRepository, getSocketIO))
+);
 app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
