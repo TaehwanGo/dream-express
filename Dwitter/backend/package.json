@@ -5,7 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "test": "DOTENV_CONFIG_PATH=./env.test jest --watchAll",
+    "test": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose",
+    "test:coverage": "DOTENV_CONFIG_PATH=./env.test jest --coverage --verbose",
     "start": "nodemon app"
   },
   "keywords": [],
