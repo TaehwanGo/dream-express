@@ -14,14 +14,6 @@ export class TweetController {
     res.status(200).json(data);
   };
 
-  getTweets = async (req, res) => {
-    const username = req.query.username;
-    const data = await (username
-      ? this.tweetRepository.getAllByUsername(username)
-      : this.tweetRepository.getAll());
-    res.status(200).json(data);
-  };
-
   getTweet = async (req, res) => {
     const id = req.params.id;
     const tweet = await this.tweetRepository.getById(id);
