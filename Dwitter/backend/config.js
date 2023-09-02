@@ -32,4 +32,7 @@ export const config = {
     // windowMs: 10000, // 10 seconds
     // max: 10, // limit each IP to
   },
+  cors: {
+    allowedOrigin: required("CORS_ALLOW_ORIGIN"),
+  },
 };

@@ -10,34 +10,52 @@ import { sequelize } from "./db/database.js";
 import rateLimiter from "./middleware/rate-limiter.js";
 import { TweetController } from "./controller/tweet.js";
 import * as tweetRepository from "./data/tweet.js";
+import { config } from "./config.js";
 
-const app = express();
-app.use(express.json());
-app.use(helmet());
-app.use(cors()); // 배포 시엔 신경을 써주자 지금은 "*"
-app.use(morgan("tiny"));
-app.use(rateLimiter);
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionsSuccessStatus: 200,
+};
 
-app.use(
-  "/tweets",
-  tweetRouter(new TweetController(tweetRepository, getSocketIO))
-);
-app.use("/auth", authRouter);
+export async function startServer() {
+  const app = express();
+  app.use(express.json());
+  app.use(helmet());
+  app.use(cors(corsOption)); // 배포 시엔 신경을 써주자 지금은 "*"
+  app.use(morgan("tiny"));
+  app.use(rateLimiter);
 
-app.use((req, res, next) => {
-  res.status(404);
-});
-app.use((req, res, next) => {
-  console.error(error);
-  res.sendStatus(500);
-});
+  app.use(
+    "/tweets",
+    tweetRouter(new TweetController(tweetRepository, getSocketIO))
+  );
+  app.use("/auth", authRouter);
 
-// export const dbConnection = await connectDB();
+  app.use((req, res, next) => {
+    res.status(404);
+  });
+  app.use((req, res, next) => {
+    console.error(error);
+    res.sendStatus(500);
+  });
 
-sequelize.sync().then((client) => {
-  // console.log(client);
+  // export const dbConnection = await connectDB();
 
+  await sequelize.sync();
   // db가 연결이 먼저 되고 서버를 실행하기 위해 then안에서 실행
   const server = app.listen(4000, () => console.log("Listening on port 4000"));
   initSocket(server);
-});
+}
+
+export async function stopServer(server) {
+  return new Promise((resolve, reject) => {
+    server.close(async () => {
+      try {
+        await sequelize.close();
+        resolve();
+      } catch (error) {
+        reject();
+      }
+    });
+  });
+}

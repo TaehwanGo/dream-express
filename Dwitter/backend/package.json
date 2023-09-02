@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose",
     "test:coverage": "DOTENV_CONFIG_PATH=./env.test jest --coverage --verbose",
-    "start": "nodemon app"
+    "start": "nodemon index"
   },
   "keywords": [],
   "author": "",
