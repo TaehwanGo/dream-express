@@ -45,6 +45,7 @@ export async function startServer() {
   // db가 연결이 먼저 되고 서버를 실행하기 위해 then안에서 실행
   const server = app.listen(4000, () => console.log("Listening on port 4000"));
   initSocket(server);
+  return server;
 }
 
 export async function stopServer(server) {
