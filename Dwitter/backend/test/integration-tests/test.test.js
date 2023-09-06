@@ -47,6 +47,82 @@ describe("Auth APIs", () => {
         `${fakeUser.username} already exists`
       );
     });
+
+    it("returns 400 when username is less than 5 characters", async () => {
+      const fakeUser = makeValidUserDetails();
+      fakeUser.username = "abc";
+
+      const response = await request.post("/auth/signup", fakeUser);
+
+      expect(response.status).toBe(400);
+      expect(response.data.message).toBe(
+        "username should be at least 5 characters"
+      );
+    });
+
+    it("returns 400 when password is less than 5 characters", async () => {
+      const fakeUser = makeValidUserDetails();
+      fakeUser.password = "abc";
+
+      const response = await request.post("/auth/signup", fakeUser);
+
+      expect(response.status).toBe(400);
+      expect(response.data.message).toBe(
+        "password should be at least 5 characters"
+      );
+    });
+
+    it("returns 400 when name is missing", async () => {
+      const fakeUser = makeValidUserDetails();
+      fakeUser.name = "";
+
+      const response = await request.post("/auth/signup", fakeUser);
+
+      expect(response.status).toBe(400);
+      expect(response.data.message).toBe("name is missing");
+    });
+
+    it("returns 400 when email is invalid", async () => {
+      const fakeUser = makeValidUserDetails();
+      fakeUser.email = "abc";
+
+      const response = await request.post("/auth/signup", fakeUser);
+
+      expect(response.status).toBe(400);
+      expect(response.data.message).toBe("invalid email");
+    });
+
+    // test.each([
+    //   {a: 1, b: 1, expected: 2},
+    //   {a: 1, b: 2, expected: 3},
+    //   {a: 2, b: 1, expected: 3},
+    // ])('.add($a, $b)', ({a, b, expected}) => {
+    //   expect(a + b).toBe(expected);
+    // });
+
+    test.each([
+      { missingFieldName: "name", expectedMessage: "name is missing" },
+      // {
+      //   missingFieldName: "username",
+      //   expectedMessage: "username should be at least 5 characters",
+      // },
+      {
+        missingFieldName: "password",
+        expectedMessage: "password should be at least 5 characters",
+      },
+      { missingFieldName: "email", expectedMessage: "invalid email" },
+    ])(
+      `return 400 when $missingFieldName field is missing`,
+      async ({ missingFieldName, expectedMessage }) => {
+        const fakeUser = makeValidUserDetails();
+        delete fakeUser[missingFieldName];
+
+        const response = await request.post("/auth/signup", fakeUser);
+
+        expect(response.status).toBe(400);
+        expect(response.data.message).toBe(expectedMessage);
+      }
+    );
   });
 });
 
