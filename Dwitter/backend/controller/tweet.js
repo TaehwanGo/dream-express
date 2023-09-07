@@ -50,15 +50,15 @@ export class TweetController {
     res.status(200).json(updated);
   };
 
-  deleteTweet = async (req, res) => {
+  deleteTweet = async (req, res, next) => {
     const id = req.params.id;
     const tweet = await this.tweetRepository.getById(id);
     if (!tweet) {
-      return res.status(404);
+      return res.status(404).json({ message: `Tweet not found: ${id}` });
     }
     if (tweet.userId !== req.userId) {
       // 해당 트윗 유저아이디와 로그인된 유저아이디가 다르면
-      return res.status(403);
+      return res.sendStatus(403);
     }
     await this.tweetRepository.remove(id);
     res.sendStatus(204);
