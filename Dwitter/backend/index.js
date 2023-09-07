@@ -1,3 +1,3 @@
 import { startServer } from "./app.js";
 
-startServer();
+startServer(4000); // 4000 || config.port

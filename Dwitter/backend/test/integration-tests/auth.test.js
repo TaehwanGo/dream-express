@@ -2,6 +2,7 @@ import axios from "axios";
 import { startServer, stopServer } from "../../app.js";
 import { sequelize } from "../../db/database.js";
 import { faker } from "@faker-js/faker";
+import { createNewUserAccount, makeValidUserDetails } from "./auth_utils.js";
 
 describe("Auth APIs", () => {
   let server;
@@ -15,7 +16,7 @@ describe("Auth APIs", () => {
   beforeAll(async () => {
     server = await startServer();
     request = axios.create({
-      baseURL: "http://localhost:4000",
+      baseURL: `http://localhost:${server.address().port}`,
       validateStatus: null, // 200대는 전부 성공, 나머진 Error, 그런데 테스트 할 때는 우리가 예상하는 것이기 때문에 전부 처리되도록 설정
     });
   });
@@ -127,7 +128,7 @@ describe("Auth APIs", () => {
 
   describe("POST to /auth/login", () => {
     it("returns 200 and authorization token when user credentials are valid", async () => {
-      const user = await createNewUserAccount();
+      const user = await createNewUserAccount(request);
 
       const res = await request.post("/auth/login", {
         username: user.username,
@@ -139,7 +140,7 @@ describe("Auth APIs", () => {
     });
 
     it("returns 401 when password is wrong", async () => {
-      const user = await createNewUserAccount();
+      const user = await createNewUserAccount(request);
       const wrongPassword = user.password.toUpperCase();
 
       const res = await request.post("/auth/login", {
@@ -166,7 +167,7 @@ describe("Auth APIs", () => {
 
   describe("GET to /auth/me", () => {
     it("returns user details when valid token is present in Authorization header", async () => {
-      const user = await createNewUserAccount();
+      const user = await createNewUserAccount(request);
 
       const res = await request.get("/auth/me", {
         headers: {
@@ -182,21 +183,12 @@ describe("Auth APIs", () => {
     });
   });
 
-  async function createNewUserAccount() {
-    const userDetails = makeValidUserDetails();
-    const prepareUserResponse = await request.post("/auth/signup", userDetails);
-    return {
-      ...userDetails,
-      jwt: prepareUserResponse.data.token,
-    };
-  }
-
   describe("Tweets APIs", () => {
     // 라우터에서 접근 할 수 있는 것으로 그룹을 나누었다
     describe("POST /tweets", () => {
       it("returns 201 and the created tweet when a tweet text is 3 characters or more", async () => {
         const text = faker.lorem.words(3);
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const res = await request.post(
           "/tweets",
@@ -218,7 +210,7 @@ describe("Auth APIs", () => {
 
       it("returns 400 when a tweet text is less than 3 characters", async () => {
         const text = faker.lorem.word(2);
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const res = await request.post(
           "/tweets",
@@ -235,8 +227,8 @@ describe("Auth APIs", () => {
     describe("GET /tweets", () => {
       it("returns all tweets when username is not specified in the query", async () => {
         const text = faker.lorem.words(3);
-        const user1 = await createNewUserAccount();
-        const user2 = await createNewUserAccount();
+        const user1 = await createNewUserAccount(request);
+        const user2 = await createNewUserAccount(request);
         const user1Headers = {
           Authorization: `Bearer ${user1.jwt}`,
         };
@@ -257,8 +249,8 @@ describe("Auth APIs", () => {
 
       it("returns only tweets of the given user when username is specified in the query", async () => {
         const text = faker.lorem.words(3);
-        const user1 = await createNewUserAccount();
-        const user2 = await createNewUserAccount();
+        const user1 = await createNewUserAccount(request);
+        const user2 = await createNewUserAccount(request);
         const user1Headers = {
           Authorization: `Bearer ${user1.jwt}`,
         };
@@ -284,7 +276,7 @@ describe("Auth APIs", () => {
 
     describe("GET /tweets/:id", () => {
       it("returns 404 when tweet id does not exist", async () => {
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const res = await request.get(`/tweets/nonexistentId`, {
           headers: {
@@ -297,7 +289,7 @@ describe("Auth APIs", () => {
 
       it("returns 200 and the tweet when tweet id exists", async () => {
         const text = faker.lorem.words(3);
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
         const createdTweet = await request.post(
           "/tweets",
           { text },
@@ -321,7 +313,7 @@ describe("Auth APIs", () => {
     describe("PUT /tweets/:id", () => {
       it("returns 404 when tweet id does not exist", async () => {
         const text = faker.lorem.words(3);
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const res = await request.put(
           `/tweets/nonexistentId`,
@@ -340,7 +332,7 @@ describe("Auth APIs", () => {
       it("returns 200 and updated tweet when tweet id exists and the tweet belongs to the user", async () => {
         const text = faker.lorem.words(3);
         const updatedText = faker.lorem.words(3);
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const createdTweet = await request.post(
           "/tweets",
@@ -368,8 +360,8 @@ describe("Auth APIs", () => {
       it("returns 403 when tweet id exists but the tweet does not belong to the user", async () => {
         const text = faker.lorem.words(3);
         const updatedText = faker.lorem.words(3);
-        const tweetAuthor = await createNewUserAccount();
-        const anotherUser = await createNewUserAccount();
+        const tweetAuthor = await createNewUserAccount(request);
+        const anotherUser = await createNewUserAccount(request);
 
         const createdTweet = await request.post(
           "/tweets",
@@ -397,7 +389,7 @@ describe("Auth APIs", () => {
 
     describe("DELETE /tweets/:id", () => {
       it("returns 404 when tweet id does not exist", async () => {
-        const user = await createNewUserAccount();
+        const user = await createNewUserAccount(request);
 
         const res = await request.delete(`/tweets/${faker.string.uuid()}`, {
           headers: {
@@ -410,8 +402,8 @@ describe("Auth APIs", () => {
 
       it("returns 403 and the tweet should still be there when tweet id exists but the tweet does not belong to the user", async () => {
         const text = faker.lorem.words(3);
-        const tweetAuthor = await createNewUserAccount();
-        const anotherUser = await createNewUserAccount();
+        const tweetAuthor = await createNewUserAccount(request);
+        const anotherUser = await createNewUserAccount(request);
 
         const createdTweet = await request.post(
           "/tweets",
@@ -449,7 +441,7 @@ describe("Auth APIs", () => {
 
       it("returns 204 and the tweet should be deleted when tweet id exists and the tweet belongs to the user", async () => {
         const text = faker.lorem.words(3);
-        const tweetAuthor = await createNewUserAccount();
+        const tweetAuthor = await createNewUserAccount(request);
 
         const createdTweet = await request.post(
           "/tweets",
@@ -485,12 +477,3 @@ describe("Auth APIs", () => {
     });
   });
 });
-
-function makeValidUserDetails() {
-  return {
-    username: faker.internet.userName(),
-    password: faker.internet.password(),
-    name: faker.internet.userName(),
-    email: faker.internet.email(),
-  };
-}

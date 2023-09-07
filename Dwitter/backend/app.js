@@ -17,7 +17,7 @@ const corsOption = {
   optionsSuccessStatus: 200,
 };
 
-export async function startServer() {
+export async function startServer(port) {
   const app = express();
   app.use(express.json());
   app.use(helmet());
@@ -43,7 +43,7 @@ export async function startServer() {
 
   await sequelize.sync();
   // db가 연결이 먼저 되고 서버를 실행하기 위해 then안에서 실행
-  const server = app.listen(4000, () => console.log("Listening on port 4000"));
+  const server = app.listen(port, () => console.log("Listening on port 4000"));
   initSocket(server);
   return server;
 }
