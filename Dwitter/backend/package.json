@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose",
+    "test": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose --globalTeardown=./test/integration-tests/global-teardown.js",
+    "test:unit": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose --testPathIgnorePatterns=/test/integration-tests",
+    "test:integration": "DOTENV_CONFIG_PATH=./env.test jest --watchAll --verbose --testPathPattern=/test/integration-tests --globalTeardown=./tests/integration-tests/global-teardown.js",
     "test:coverage": "DOTENV_CONFIG_PATH=./env.test jest --coverage --verbose",
     "start": "nodemon index"
   },
